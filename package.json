@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "A Flight Tracker for Alaska Airlines",
   "main": "index.js",
+  "scripts": {
+    "watch": "webpack-dev-server --inline --hot"
+  },
   "repository": "https://github.com/aesthetiques/alaska-airlines.git",
   "author": "Caleb <caleb.wells1@gmail.com>",
   "license": "MIT",
