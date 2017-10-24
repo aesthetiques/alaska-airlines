@@ -1,12 +1,8 @@
 import superagent from 'superagent'
 
+//Admin Controls
 export const createTicket = ticket => ({
   type: 'CREATE_TICKET',
-  payload: ticket,
-})
-
-export const sellTicket = ticket => ({
-  type: 'SELL_TICKET',
   payload: ticket,
 })
 
@@ -17,6 +13,12 @@ export const updateTicket = ticket => ({
 
 export const deleteTicket = ticket => ({
   type: 'DELETE_TICKET',
+  payload: ticket,
+})
+
+//user sell option
+export const sellTicket = ticket => ({
+  type: 'SELL_TICKET',
   payload: ticket,
 })
 

@@ -1,19 +1,11 @@
 import superagent from 'superagent'
 
+//Admin actions
 export const createLocation = location => ({
   type: 'CREATE_LOCATION',
   payload: location,
 })
 
-export const fetchLocations = location => ({
-  type: 'FETCH_ALL_LOCATIONS',
-  payload: location,
-})
-
-export const fetchLocation = location => ({
-  type: 'FETCH_LOCATION',
-  payload: location,
-})
 
 export const updateLocation = location => ({
   type: 'UPDATE_LOCATION',
@@ -22,6 +14,17 @@ export const updateLocation = location => ({
 
 export const deleteLocation = location => ({
   type: 'DELETE_LOCATION',
+  payload: location,
+})
+
+//User actions
+export const fetchLocations = location => ({
+  type: 'FETCH_ALL_LOCATIONS',
+  payload: location,
+})
+
+export const fetchLocation = location => ({
+  type: 'FETCH_LOCATION',
   payload: location,
 })
 

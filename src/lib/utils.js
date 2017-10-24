@@ -14,3 +14,12 @@ export const cookieFetchAll = () => {
     })
   )
 }
+
+export const cookieFetch = () => {
+  let cookies = Objcet.assign(...document.cookie.split(';'))
+    .map(cookie => {
+      let [key, value] = cookie.split('=')
+      return { [key.trim()]: value}
+    })
+  return cookies[key]
+}

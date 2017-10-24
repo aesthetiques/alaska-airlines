@@ -20,11 +20,46 @@ export const deleteFlight = flight => ({
   payload: flight,
 })
 
+//user filter & search options
+export const ascendingPriceFilter = flight => ({
+  type: 'ASCENDING_PRICE_FILTER',
+  payload: flight,
+})
+
+export const descendingPriceFilter = flight => ({
+  type: 'DESCENDING_PRICE_FILTER',
+  payload: flight,
+})
+
+export const ascendingTimeFilter = flight => ({
+  type: 'ASCENDING_TIME_FILTER',
+  payload: flight,
+})
+
+export const descendingTimeFilter = flight => ({
+  type: 'DESCENDING_TIME_FILTER',
+  payload: flight,
+})
+
+export const flightSearch = results => ({
+  type: 'FLIGHT_SEARCH',
+  payload: results,
+})
+
+
 export const createFlightReq = flight => (dispatch, getState) => {
   return superagent.post(`${__API_URL__}/api/flight/new`)
     .send(flight)
     .then(res => {
       dispatch(createFlight(res.body))
+      return res
+    })
+}
+
+export const flightSearchReq = results => (dispatch, getState) => {
+  return superagent.get(`${__API_URL__}/api/flightplanner/${results.departureCode}/${results.destinationCode}`)
+    .then(res => {
+      dispatch(flightSearch(res.body.data))
       return res
     })
 }
