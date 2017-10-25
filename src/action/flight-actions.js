@@ -56,10 +56,11 @@ export const createFlightReq = flight => (dispatch, getState) => {
     })
 }
 
-export const flightSearchReq = results => (dispatch, getState) => {
-  return superagent.get(`${__API_URL__}/api/flightplanner/${results.departureCode}/${results.destinationCode}`)
+export const flightSearchReq = search => (dispatch, getState) => {
+  console.log('Search', search)
+  return superagent.get(`${__API_URL__}/api/flightplan/${search.departureCode}/${search.destinationCode}`)
     .then(res => {
-      dispatch(flightSearch(res.body.data))
+      dispatch(flightSearch(res.body))
       return res
     })
 }

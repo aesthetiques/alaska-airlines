@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import * as utils from '../../lib/utils'
+import FlightContainer from '../flight-container'
 import {flightSearchReq} from '../../action/flight-actions'
 
 class SearchForm extends React.Component{
@@ -8,53 +9,74 @@ class SearchForm extends React.Component{
     super(props)
 
     this.state = {
-      departureCode: 'SEA',
-      destinationCode: 'LAX',
+      departure: '',
+      destination: '',
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
 
+
   handleChange(e){
     e.preventDefault()
-
+    this.setState({
+      [e.target.name]: e.target.value,
+    })
+    console.log(this.state)
   }
 
   handleSubmit(e){
     e.preventDefault()
+    
+    this.departureCode = ''
+    this.destinationCode = ''
+    
+    this.props.locations.map(flight => {
+      if(flight.location === this.state.departure) this.departureCode = flight.abbr
+      if(flight.location === this.state.destination) this.destinationCode = flight.abbr
+    })
 
-    this.props.flightSearchReq(this.state)
-    //dispatch the flightSearch
+    this.props.flightSearchReq({
+      departureCode: this.departureCode,
+      destinationCode: this.destinationCode,
+    })
   }
-
 
   render(){
     return(
-      <form 
-        className="search-form"
-        onSubmit={this.handleSubmit}>
-        <input
-          type="text"
-          name="departureCode"
-          placeholder="starting location"
-          onChange={this.handleChange}
-          />
+      <div className="search">
+        <form 
+          className="search-form"
+          onSubmit={this.handleSubmit}>
+          <input
+            type="text"
+            name="departure"
+            placeholder="starting location"
+            onChange={this.handleChange}
+            />
 
-        <input
-          type="text"
-          name="destinationCode"
-          placeholder="destination"
-          onChange={this.handleChange}
-          />
-        <button label="search" type="submit">search</button>
-      </form>
+          <input
+            type="text"
+            name="destination"
+            placeholder="destination"
+            onChange={this.handleChange}
+            />
+          <button label="search" type="submit">search</button>
+        </form>
+        {utils.renderIf(this.props.flights, <FlightContainer />)}
+      </div> 
     )
   }
 }
 
-let mapDispatchToProps = dispatch => ({
-  flightSearchReq: state => dispatch(flightSearchReq(state))
+let mapStateToProps = state => ({
+  locations: state.location,
+  flights: state.flight.flightsOut,
 })
 
-export default SearchForm
+let mapDispatchToProps = dispatch => ({
+  flightSearchReq: search => dispatch(flightSearchReq(search))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchForm)
