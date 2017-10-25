@@ -22,7 +22,9 @@ class FlightItem extends React.Component{
           return(
             <li key={flight.destination}>
             Depart from: {flight.departure} Flight Number: {flight.flightNum} &rarr; {flight.destination}<br/>
-            Depart at: {flight.departureTime} Arrive at: {flight.arrivalTime}
+            Depart at: {flight.departureTime} Arrive at: {flight.arrivalTime}<br />
+            First Class: ${flight.firstClassPrice} <br />
+            Main Cabin: ${flight.standardClassPrice} <br />
             </li>
           )
         })
