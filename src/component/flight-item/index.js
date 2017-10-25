@@ -5,6 +5,11 @@ import {
   ascendingPriceFilter, 
   descendingTimeFilter,
   descendingPriceFilter} from '../../action/flight-actions' 
+import {
+  Col,
+  Row,
+  Grid,
+  Panel} from 'react-bootstrap'
 import * as utils from '../../lib/utils'
 
 class FlightItem extends React.Component{
@@ -17,23 +22,30 @@ class FlightItem extends React.Component{
       <div className="flight-item">
       {console.log('successfully transferred props into flight-item', this.props.flights)}
       {this.props.flights.length ? 
-        <ul>
+        <Grid>
+        <Row className="show-grid">
+          <Col sm={6} md={4}>Trip</Col>
+          <Col sm={6} md={2}>Flight Number</Col>
+          <Col sm={6} md={2}>First Class</Col>
+          <Col sm={6} md={2}>Main Cabin</Col>
+        </Row>
         {this.props.flights.map(flight => {
           return(
-            <li key={flight.flightNum}>
-              Depart from: {flight.departure} Flight Number: {flight.flightNum} &rarr; {flight.destination}<br/>
-              Depart at: {flight.departureTime} Arrive at: {flight.arrivalTime}<br />
-              First Class: ${flight.firstClassPrice} <br />
-              Main Cabin: ${flight.standardClassPrice} <br />
-            </li>
+          <Row className="show-grid" key={flight.flightNum}>
+            <Col sm={6} md={4}>{flight.departure} &rarr; {flight.destination}</Col>
+            <Col sm={6} md={2}>{flight.flightNum}</Col>
+            <Col sm={6} md={2}>${flight.firstClassPrice}</Col>
+            <Col sm={6} md={2}>${flight.standardClassPrice}</Col>
+          </Row>
           )
         })
         }
       
-      </ul> 
+        </Grid> 
       : 'No flights found'
       }
       </div>
+
     )
   }
 
