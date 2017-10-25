@@ -40,7 +40,6 @@ export const createLocationReq = location => (dispatch, getState) => {
 export const fetchLocationsReq = () => (dispatch, getState) => {
   return superagent.get(`${__API_URL__}/api/locations`)
     .then(res => {
-      console.log('__FETCH_LOCATIONS_ RESULT', res.body)
       dispatch(fetchLocations(res.body))
       return res
     })
@@ -49,7 +48,7 @@ export const fetchLocationsReq = () => (dispatch, getState) => {
 export const fetchLocationReq = location => (dispatch, getState) => {
   return superagent.get(`${__API_URL__}/api/location/${location._id}`)
     .then(res => {
-      dispatch(fetchLocation(res.text))
+      dispatch(fetchLocation(res.body))
       return res
     })
 }

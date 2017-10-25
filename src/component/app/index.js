@@ -9,7 +9,7 @@ import LandingContainer from '../landing-container'
 import {BrowserRouter, Route, Redirect} from 'react-router-dom'
 
 class App extends React.Component{
-  componentWillMount(){
+  componentDidMount(){
     this.props.fetchLocations()
   }
 
@@ -20,7 +20,7 @@ class App extends React.Component{
           <div>
           {/* want to make this a 'get started' element VVVVVV */}
           <Route path ="/" component={LandingContainer}/>
-          {console.log(this.props.state)}
+          {console.log('log the thing', this.props.locations)}
           </div>
           {/* {LandingContainer} */}
         </BrowserRouter>
@@ -30,7 +30,7 @@ class App extends React.Component{
 }
 
 let mapStateToProps = state => ({
-  locations: state.locations
+  locations: state.location
 })
 
 let mapDispatchToProps = dispatch => ({
