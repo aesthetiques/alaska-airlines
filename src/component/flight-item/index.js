@@ -20,11 +20,11 @@ class FlightItem extends React.Component{
         <ul>
         {this.props.flights.map(flight => {
           return(
-            <li key={flight.destination}>
-            Depart from: {flight.departure} Flight Number: {flight.flightNum} &rarr; {flight.destination}<br/>
-            Depart at: {flight.departureTime} Arrive at: {flight.arrivalTime}<br />
-            First Class: ${flight.firstClassPrice} <br />
-            Main Cabin: ${flight.standardClassPrice} <br />
+            <li key={flight.flightNum}>
+              Depart from: {flight.departure} Flight Number: {flight.flightNum} &rarr; {flight.destination}<br/>
+              Depart at: {flight.departureTime} Arrive at: {flight.arrivalTime}<br />
+              First Class: ${flight.firstClassPrice} <br />
+              Main Cabin: ${flight.standardClassPrice} <br />
             </li>
           )
         })
