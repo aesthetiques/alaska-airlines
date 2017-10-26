@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import * as utils from '../../lib/utils'
+import AutoSuggest from '../auto-suggest'
 import {
   Col,
   Row,
@@ -65,7 +66,9 @@ class SearchForm extends React.Component{
               sm={2}>
               Departing from
             </Col>
-            
+            <Col>
+              <AutoSuggest locations={this.props.locations}/>
+            </Col>
             <Col sm={4}>
             <FormControl
               type="text"
