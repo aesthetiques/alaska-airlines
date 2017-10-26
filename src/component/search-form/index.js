@@ -3,13 +3,16 @@ import {connect} from 'react-redux'
 import * as utils from '../../lib/utils'
 import {
   Col,
+  Row,
   Form,
+  Panel,
   Button,
   FormGroup,
   FormControl,
   ControlLabel} from 'react-bootstrap'
 import FlightContainer from '../flight-container'
 import {flightSearchReq} from '../../action/flight-actions'
+import {ascendingFirstClassFilter} from '../../action/flight-actions'
 
 class SearchForm extends React.Component{
   constructor(props){
@@ -93,6 +96,7 @@ class SearchForm extends React.Component{
             </Col>
           </FormGroup>
         </Form>
+
         {utils.renderIf(this.props.flights, <FlightContainer />)}
       </div> 
     )
@@ -105,7 +109,8 @@ let mapStateToProps = state => ({
 })
 
 let mapDispatchToProps = dispatch => ({
-  flightSearchReq: search => dispatch(flightSearchReq(search))
+  flightSearchReq: search => dispatch(flightSearchReq(search)),
+  ascendingFirstClassFilter: flights => dispatch(ascendingFirstClassFilter(flights))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchForm)

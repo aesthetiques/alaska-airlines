@@ -1,10 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {
-  ascendingTimeFilter, 
-  ascendingPriceFilter, 
-  descendingTimeFilter,
-  descendingPriceFilter} from '../../action/flight-actions' 
+  ascendingMainCabinFilter,
+  descendingMainCabinFilter, 
+  ascendingFirstClassFilter, 
+  descendingFirstClassFilter} from '../../action/flight-actions' 
 import {
   Col,
   Row,
@@ -19,22 +19,12 @@ class FlightItem extends React.Component{
     super(props)
 
     this.state = {
-      sortType: '',
+      flights: this.props.flights,
+      firstClassFilter: 0,
+      mainCabinFilter: 0,
+      departureTimeFilter: 0,
     }
 
-    this.toggleSort = this.toggleSort.bind(this)
-  }
-
-  toggleSort(){
-    if(this.state.sortType === 'ascending'){
-      this.setState({
-        sortType: 'descending',
-      })
-    }else{
-      this.setState({
-        sortType: 'ascending',
-      })
-    }
   }
 
   render(){
@@ -48,9 +38,9 @@ class FlightItem extends React.Component{
               <Col sm={6} md={3}>Trip</Col>
               <Col sm={6} md={2}>Flight Number</Col>
               <Col sm={6} md={2}>
+              {console.log('props in flight item',this.props.flights)}
                 <Button 
-                  onClick={this.state.toggleSort} 
-                  onClick={this.state.sortType === 'ascending' ? this.props.descendingFirstClass(this.props.flights) : this.props.ascendingFirstClass(this.props.flights)}>
+                  onClick={() => this.props.ascendingFirstClassFilter(this.props.flights)}> 
                   First Class</Button>
                 </Col>
               <Col sm={6} md={2}><Button>Main Cabin</Button></Col>
@@ -87,10 +77,10 @@ let mapStateToProps = state => ({
 })
 
 let mapDispatchToProps = dispatch => ({
-  ascendingFirstClass: flights => dispatch(ascendingFirstClass(flights)),
-  descendingFirstClass: flights => dispatch(descendingFirstClass(flights)),
-  ascendingMainCabinClass: flights => dispatch(ascendingMainCabinClass(flights)),
-  descendingMainCabinClass: flights => dispatch(descendingMainCabinClass(flights)),
+  ascendingFirstClassFilter: flights => dispatch(ascendingFirstClassFilter(flights)),
+  descendingFirstClassFilter: flights => dispatch(descendingFirstClassFilter(flights)),
+  ascendingMainCabinClassFilter: flights => dispatch(ascendingMainCabinClassFilter(flights)),
+  descendingMainCabinClassFilter: flights => dispatch(descendingMainCabinClassFilter(flights)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(FlightItem)
