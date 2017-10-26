@@ -113,6 +113,7 @@ class FlightItem extends React.Component{
                   <Col sm={6} md={2}>${flight.firstClassPrice}</Col>
                   <Col sm={6} md={2}>${flight.standardClassPrice}</Col>
                   <Col sm={6} md={2}>{flight.departureTime}</Col>
+                  <hr />
                 </Row>
               )
             })
