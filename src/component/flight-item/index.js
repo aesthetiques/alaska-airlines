@@ -19,18 +19,32 @@ class FlightItem extends React.Component{
     super(props)
 
     this.state = {
-      flights: this.props.flights,
       firstClassFilter: 0,
       mainCabinFilter: 0,
       departureTimeFilter: 0,
     }
 
+    this.handleSort = this.handleSort.bind(this)
+  }
+
+  
+  componentWillMount(){}
+  
+  handleSort(){
+    this.stateProperty = this.state.firstClassFilter ? 0 : 1
+    console.log('switching to:', this.stateProperty)    
+    this.setState({
+      firstClassFilter: this.stateProperty,
+      mainCabinFilter: 0,
+      departureTimeFilter: 0,
+    }, function(){ 
+      console.log('__NEW_SORTED_STATE', this.state)
+    })    
   }
 
   render(){
     return(
       <div className="flight-item">
-      {console.log('successfully transferred props into flight-item', this.props.flights)}
       {this.props.flights.length ? 
         <Grid>
           <Panel>
@@ -38,11 +52,17 @@ class FlightItem extends React.Component{
               <Col sm={6} md={3}>Trip</Col>
               <Col sm={6} md={2}>Flight Number</Col>
               <Col sm={6} md={2}>
-              {console.log('props in flight item',this.props.flights)}
                 <Button 
-                  onClick={() => this.props.ascendingFirstClassFilter(this.props.flights)}> 
-                  First Class</Button>
-                </Col>
+                  type="submit"
+                  name="firstClassFilter"
+                  onClick={() => {
+                    this.handleSort()
+                    this.state.firstClassFilter ? 
+                      this.props.ascendingFirstClassFilter(this.props.flights)
+                    : this.props.descendingFirstClassFilter(this.props.flights)
+                    }
+                  }>First Class:</Button>
+              </Col>
               <Col sm={6} md={2}><Button>Main Cabin</Button></Col>
               <Col sm={6} md={2}><Button>Departure Time:</Button></Col>
             </Row>
@@ -59,11 +79,10 @@ class FlightItem extends React.Component{
                 </Row>
               )
             })
-            }
-      
+          }
           </Panel>
         </Grid> 
-      : 'No flights found'
+        : 'No flights found'
       }
       </div>
 
@@ -73,7 +92,7 @@ class FlightItem extends React.Component{
 }
 
 let mapStateToProps = state => ({
-  flights: state.flight.flightsOut,
+  flights: state.flight,
 })
 
 let mapDispatchToProps = dispatch => ({

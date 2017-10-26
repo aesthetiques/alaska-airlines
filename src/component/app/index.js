@@ -25,7 +25,7 @@ class App extends React.Component{
 }
 
 let mapStateToProps = state => ({
-  locations: state.location
+  locations: state.location,
 })
 
 let mapDispatchToProps = dispatch => ({

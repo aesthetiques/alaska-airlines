@@ -105,7 +105,7 @@ class SearchForm extends React.Component{
 
 let mapStateToProps = state => ({
   locations: state.location,
-  flights: state.flight.flightsOut,
+  flights: state.flight,
 })
 
 let mapDispatchToProps = dispatch => ({
