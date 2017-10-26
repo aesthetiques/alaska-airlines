@@ -1,6 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import * as utils from '../../lib/utils'
+import {
+  Col,
+  Form,
+  Button,
+  FormGroup,
+  FormControl,
+  ControlLabel} from 'react-bootstrap'
 import FlightContainer from '../flight-container'
 import {flightSearchReq} from '../../action/flight-actions'
 
@@ -23,7 +30,6 @@ class SearchForm extends React.Component{
     this.setState({
       [e.target.name]: e.target.value,
     })
-    console.log(this.state)
   }
 
   handleSubmit(e){
@@ -46,24 +52,47 @@ class SearchForm extends React.Component{
   render(){
     return(
       <div className="search">
-        <form 
+        <Form 
+          horizontal 
           className="search-form"
           onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            name="departure"
-            placeholder="starting location"
-            onChange={this.handleChange}
-            />
+          <FormGroup>
+            <Col 
+              componentClass={ControlLabel} 
+              sm={2}>
+              Departing from
+            </Col>
+            
+            <Col sm={4}>
+            <FormControl
+              type="text"
+              name="departure"
+              placeholder="home"
+              onChange={this.handleChange}/>
+            </Col>
+          </FormGroup>
 
-          <input
-            type="text"
-            name="destination"
-            placeholder="destination"
-            onChange={this.handleChange}
-            />
-          <button label="search" type="submit">search</button>
-        </form>
+          <FormGroup>
+            <Col
+              componentClass={ControlLabel}
+              sm={2}>
+              traveling to 
+            </Col>
+            <Col sm={4}>
+              <FormControl
+                type="text"
+                name="destination"
+                placeholder="...where no man has gone before."
+                onChange={this.handleChange}/>
+              </Col>
+          </FormGroup>
+
+          <FormGroup>
+            <Col smOffset={2} sm={4}>
+              <Button type="submit">search</Button>
+            </Col>
+          </FormGroup>
+        </Form>
         {utils.renderIf(this.props.flights, <FlightContainer />)}
       </div> 
     )
