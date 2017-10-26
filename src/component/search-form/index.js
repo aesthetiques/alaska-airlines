@@ -38,9 +38,9 @@ class SearchForm extends React.Component{
     this.departureCode = ''
     this.destinationCode = ''
     
-    this.props.locations.map(flight => {
-      if(flight.location === this.state.departure) this.departureCode = flight.abbr
-      if(flight.location === this.state.destination) this.destinationCode = flight.abbr
+    this.props.locations.map(airport => {
+      if(airport.location === this.state.departure) this.departureCode = airport.abbr
+      if(airport.location === this.state.destination) this.destinationCode = airport.abbr
     })
 
     this.props.flightSearchReq({

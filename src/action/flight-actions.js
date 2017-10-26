@@ -21,24 +21,34 @@ export const deleteFlight = flight => ({
 })
 
 //user filter & search options
-export const ascendingPriceFilter = flight => ({
-  type: 'ASCENDING_PRICE_FILTER',
-  payload: flight,
+export const ascendingFirstClassFilter = flights => ({
+  type: 'ASCENDING_FIRST_CLASS_FILTER',
+  payload: flights,
 })
 
-export const descendingPriceFilter = flight => ({
-  type: 'DESCENDING_PRICE_FILTER',
-  payload: flight,
+export const descendingFirstClassFilter = flights => ({
+  type: 'DESCENDING_FIRST_CLASS_FILTER',
+  payload: flights,
 })
 
-export const ascendingTimeFilter = flight => ({
+export const ascendingMainCabinFilter = flights => ({
+  type: 'ASCENDING_MAIN_CABIN_FILTER',
+  payload: flights,
+})
+
+export const descendingMainCabinFilter = flights => ({
+  type: 'DESCENDING_MAIN_CABIN_FILTER',
+  payload: flights,
+})
+
+export const ascendingTimeFilter = flights => ({
   type: 'ASCENDING_TIME_FILTER',
-  payload: flight,
+  payload: flights,
 })
 
-export const descendingTimeFilter = flight => ({
+export const descendingTimeFilter = flights => ({
   type: 'DESCENDING_TIME_FILTER',
-  payload: flight,
+  payload: flights,
 })
 
 export const flightSearch = results => ({
