@@ -12,7 +12,9 @@ class LandingContainer extends React.Component{
   render(){
     return(
     <div>
-      <div className="banner"></div>
+      <div className="banner">
+        <h1> Alaska Airlines </h1>
+      </div>
       <SearchForm/>
       <footer className="footer">
         <a href="#">Careers</a>
