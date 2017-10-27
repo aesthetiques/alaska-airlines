@@ -1,14 +1,15 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {store} from '../../main'
 import * as utils from '../../lib/utils'
-// import FlightContainer from '../flight-container'
-// import TicketContainer from '../ticket-container'
 import LandingContainer from '../landing-container'
+import {setLocationSuggestions} from '../../action/suggestion-actions'
+import {fetchLocationsReq} from '../../action/location-actions'
 import {BrowserRouter, Route, Redirect} from 'react-router-dom'
 
 class App extends React.Component{
-  componentDidMount(){
-    
+  componentWillMount(){
+    store.dispatch(fetchLocationsReq())
   }
 
   render(){
@@ -16,10 +17,8 @@ class App extends React.Component{
       <div>
         <BrowserRouter>
           <div>
-          {/* want to make this a 'get started' element VVVVVV */}
           <Route path ="/" component={LandingContainer}/>
           </div>
-          {/* {LandingContainer} */}
         </BrowserRouter>
       </div>
     )
@@ -27,11 +26,12 @@ class App extends React.Component{
 }
 
 let mapStateToProps = state => ({
-
+  locations: state.location,
 })
 
 let mapDispatchToProps = dispatch => ({
-
+  fetchLocations: () => dispatch(fetchLocationsReq()),
+  setLocationSuggestions: array => dispatch(setLocationSuggestions(array))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

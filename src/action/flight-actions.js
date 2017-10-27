@@ -21,31 +21,40 @@ export const deleteFlight = flight => ({
 })
 
 //user filter & search options
-export const ascendingPriceFilter = flight => ({
-  type: 'ASCENDING_PRICE_FILTER',
-  payload: flight,
+export const ascendingFirstClassFilter = flights => ({
+  type: 'ASCENDING_FIRST_CLASS_FILTER',
+  payload: flights,
 })
 
-export const descendingPriceFilter = flight => ({
-  type: 'DESCENDING_PRICE_FILTER',
-  payload: flight,
+export const descendingFirstClassFilter = flights => ({
+  type: 'DESCENDING_FIRST_CLASS_FILTER',
+  payload: flights,
 })
 
-export const ascendingTimeFilter = flight => ({
+export const ascendingMainCabinFilter = flights => ({
+  type: 'ASCENDING_MAIN_CABIN_FILTER',
+  payload: flights,
+})
+
+export const descendingMainCabinFilter = flights => ({
+  type: 'DESCENDING_MAIN_CABIN_FILTER',
+  payload: flights,
+})
+
+export const ascendingTimeFilter = flights => ({
   type: 'ASCENDING_TIME_FILTER',
-  payload: flight,
+  payload: flights,
 })
 
-export const descendingTimeFilter = flight => ({
+export const descendingTimeFilter = flights => ({
   type: 'DESCENDING_TIME_FILTER',
-  payload: flight,
+  payload: flights,
 })
 
 export const flightSearch = results => ({
   type: 'FLIGHT_SEARCH',
   payload: results,
 })
-
 
 export const createFlightReq = flight => (dispatch, getState) => {
   return superagent.post(`${__API_URL__}/api/flight/new`)
@@ -56,10 +65,11 @@ export const createFlightReq = flight => (dispatch, getState) => {
     })
 }
 
-export const flightSearchReq = results => (dispatch, getState) => {
-  return superagent.get(`${__API_URL__}/api/flightplanner/${results.departureCode}/${results.destinationCode}`)
+export const flightSearchReq = search => (dispatch, getState) => {
+  console.log('Search', search)
+  return superagent.get(`${__API_URL__}/api/flightplan/${search.departureCode}/${search.destinationCode}`)
     .then(res => {
-      dispatch(flightSearch(res.body.data))
+      dispatch(flightSearch(res.body))
       return res
     })
 }

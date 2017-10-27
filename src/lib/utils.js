@@ -5,21 +5,20 @@ export const classToggler = options => Object.keys(options).filter(key => !!opti
 export const map = (child, ...args) => Array.prototype.map.apply(child, args)
 export const filter = (child, ...args) => Array.prototype.filter.apply(child, args)
 export const reduce = (child, ...args) => Array.prototype.reduce.apply(child, args)
-export const cookieDelete = key => document.cookie = `${key}=; expires=Thu, 01 Jan 1970 00:00:00 GMT`
-export const cookieFetchAll = () => {
-  return Object.assign(...document.cookie.split(';')
-    .map(cookie => {
-      let [key, value] = cookie.split('=')
-      return { [key.trim()]: value}
-    })
-  )
+//custom fuzzy search - intended for a full page of flights. 
+//can be applied to multiple search forms by changing the property that it's filtering in the regex.test
+export const fuzzySearch = (filteredCollection, searchValue) => {
+  let regex = fuzzySearch(searchValue)
+  
+  return filteredCollection.filter(value => {
+    return regex.test(value.location.toUpperCase())
+  })
+  const _fuzzySearch = input => {
+    if(!input) return /.*/
+
+    let searchvalue = `.*${input.toUpperCase().split('').join('.*')}.*`
+    return new RegExp(searchValue)
+  }
 }
 
-export const cookieFetch = () => {
-  let cookies = Objcet.assign(...document.cookie.split(';'))
-    .map(cookie => {
-      let [key, value] = cookie.split('=')
-      return { [key.trim()]: value}
-    })
-  return cookies[key]
-}
+

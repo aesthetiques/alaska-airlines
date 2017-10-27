@@ -6,7 +6,6 @@ export const createLocation = location => ({
   payload: location,
 })
 
-
 export const updateLocation = location => ({
   type: 'UPDATE_LOCATION',
   payload: location,
@@ -18,9 +17,14 @@ export const deleteLocation = location => ({
 })
 
 //User actions
-export const fetchLocations = location => ({
+export const fetchLocations = locations => ({
   type: 'FETCH_ALL_LOCATIONS',
-  payload: location,
+  payload: locations,
+})
+
+export const setLocationSuggestions = locations => ({
+  type: 'SET_LOCATION_SUGGESTIONS',
+  payload: locations,
 })
 
 export const fetchLocation = location => ({
@@ -37,10 +41,10 @@ export const createLocationReq = location => (dispatch, getState) => {
     })
 }
 
-export const fetchLocationsReq = location => (dispatch, getState) => {
+export const fetchLocationsReq = () => (dispatch, getState) => {
   return superagent.get(`${__API_URL__}/api/locations`)
     .then(res => {
-      dispatch(fetchLocations(res.body.data))
+      dispatch(fetchLocations(res.body))
       return res
     })
 }
@@ -48,7 +52,7 @@ export const fetchLocationsReq = location => (dispatch, getState) => {
 export const fetchLocationReq = location => (dispatch, getState) => {
   return superagent.get(`${__API_URL__}/api/location/${location._id}`)
     .then(res => {
-      dispatch(fetchLocation(res.body.data))
+      dispatch(fetchLocation(res.body))
       return res
     })
 }
