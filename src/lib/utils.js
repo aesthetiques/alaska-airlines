@@ -19,27 +19,4 @@ export const fuzzySearch = (filteredCollection, searchValue) => {
   }
 }
 
-//credits: Misha Morosko; https://codepen.io/moroshko/pen/LGNJMy
-
-export const escapeRegexCharacters = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-
-export const getSuggestions = (value, suggestionType, suggestionProperty) => {
-  const escapedValue = escapeRegexCharacters(value.trim())
-
-  if(escapedValue === '') {
-    return []
-  }
-
-  const regex = new RegExp('^' + escapedValue, 'i')
-
-  return suggestionType.filter(suggestion => regex.test(suggestion[suggestionProperty]))
-}
-
-export const getSuggestionValue = (suggestion, suggestionProperty) => suggestion[suggestionProperty]
-
-export const renderSuggestion = (suggestion, suggestionProperty) => {
-  return (
-    <span>{suggestion[suggestionProperty]}</span>
-  )
-}
 

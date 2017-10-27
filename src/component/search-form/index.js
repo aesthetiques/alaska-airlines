@@ -1,7 +1,9 @@
 import React from 'react'
+// require('./_autosuggest.scss')
 import {connect} from 'react-redux'
 import * as utils from '../../lib/utils'
-import AutoSuggest from '../auto-suggest'
+import AutoComplete from 'material-ui/AutoComplete'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import {
   Col,
   Row,
@@ -22,17 +24,32 @@ class SearchForm extends React.Component{
     this.state = {
       departure: '',
       destination: '',
+      searchText: '',
+      suggestions: [],
+      locations: this.props.locations,
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleChange = this.handleChange.bind(this)
+    this.handleDeparture = this.handleDeparture.bind(this)
+    this.handleDestination = this.handleDestination.bind(this)
+    this.handleNewDeparture = this.handleNewDeparture.bind(this)
   }
 
-
-  handleChange(e){
-    e.preventDefault()
+  handleDeparture(searchText){
     this.setState({
-      [e.target.name]: e.target.value,
+      departure: searchText,
+    }, console.log('__STATE__:', this.state.departure))
+  }
+
+  handleDestination(searchText){
+    this.setState({
+      destination: searchText,
+    }, console.log('__STATE__:', this.state.destination))
+  }
+
+  handleNewDeparture(searchText){
+    this.setState({
+      departure: '',
     })
   }
 
@@ -66,15 +83,18 @@ class SearchForm extends React.Component{
               sm={2}>
               Departing from
             </Col>
-            <Col>
-              <AutoSuggest locations={this.props.locations}/>
-            </Col>
+
             <Col sm={4}>
-            <FormControl
-              type="text"
-              name="departure"
-              placeholder="home"
-              onChange={this.handleChange}/>
+              <MuiThemeProvider>
+                <AutoComplete
+                    hintText="Type 'r', case insensitive"
+                    searchText={this.state.departure}
+                    onUpdateInput={this.handleDeparture}
+                    dataSource={this.props.locationSuggestions}
+                    filter={(searchText, key) => (key.indexOf(searchText) !== -1)}
+                    openOnFocus={true}
+                  />
+              </MuiThemeProvider>
             </Col>
           </FormGroup>
 
@@ -85,12 +105,17 @@ class SearchForm extends React.Component{
               traveling to 
             </Col>
             <Col sm={4}>
-              <FormControl
-                type="text"
-                name="destination"
-                placeholder="...where no man has gone before."
-                onChange={this.handleChange}/>
-              </Col>
+              <MuiThemeProvider>
+                <AutoComplete
+                  hintText="Type 'r', case insensitive"
+                  searchText={this.state.destination}
+                  onUpdateInput={this.handleDestination}
+                  dataSource={this.props.locationSuggestions}
+                  filter={(searchText, key) => (key.indexOf(searchText) !== -1)}
+                  openOnFocus={true}
+                />
+              </MuiThemeProvider>
+            </Col>
           </FormGroup>
 
           <FormGroup>
@@ -109,6 +134,7 @@ class SearchForm extends React.Component{
 let mapStateToProps = state => ({
   locations: state.location,
   flights: state.flight,
+  locationSuggestions: ['Seattle, WA', 'Las Vegas, NV']
 })
 
 let mapDispatchToProps = dispatch => ({
@@ -117,3 +143,9 @@ let mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchForm)
+
+            // <FormControl
+            //   type="text"
+            //   name="departure"
+            //   placeholder="home"
+            //   onChange={this.handleChange}/>

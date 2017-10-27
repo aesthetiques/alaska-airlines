@@ -29,7 +29,7 @@ let mapStateToProps = state => ({
 })
 
 let mapDispatchToProps = dispatch => ({
-  fetchLocations: () => dispatch(fetchLocationsReq())
+  fetchLocations: () => dispatch(fetchLocationsReq()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

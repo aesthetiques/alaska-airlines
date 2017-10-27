@@ -22,6 +22,11 @@ export const fetchLocations = locations => ({
   payload: locations,
 })
 
+export const setLocationSuggestions = locations => ({
+  type: 'SET_LOCATION_SUGGESTIONS',
+  payload: locations,
+})
+
 export const fetchLocation = location => ({
   type: 'FETCH_LOCATION',
   payload: location,
@@ -40,6 +45,7 @@ export const fetchLocationsReq = () => (dispatch, getState) => {
   return superagent.get(`${__API_URL__}/api/locations`)
     .then(res => {
       dispatch(fetchLocations(res.body))
+      // dispatch(setLocationSuggestions(res.body))
       return res
     })
 }
