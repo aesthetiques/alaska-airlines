@@ -53,6 +53,18 @@ class SearchForm extends React.Component{
     })
   }
 
+  setSuggestions(array){
+    let filteredArray = []
+
+    array.map(object => {
+      filteredArray.push(object.location)
+    })
+
+    this.setState({
+      suggestions: filteredArray,
+    })
+  }
+
   handleSubmit(e){
     e.preventDefault()
     
@@ -102,7 +114,7 @@ class SearchForm extends React.Component{
             <Col
               componentClass={ControlLabel}
               sm={2}>
-              traveling to 
+              Traveling to 
             </Col>
             <Col sm={4}>
               <MuiThemeProvider>
@@ -134,7 +146,7 @@ class SearchForm extends React.Component{
 let mapStateToProps = state => ({
   locations: state.location,
   flights: state.flight,
-  locationSuggestions: ['Seattle, WA', 'Las Vegas, NV']
+  locationSuggestions: state.flight,
 })
 
 let mapDispatchToProps = dispatch => ({
