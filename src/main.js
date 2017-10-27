@@ -4,7 +4,7 @@ import App from './component/app'
 import { Provider } from 'react-redux'
 import appCreateStore from './lib/app-create-store'
 
-let store = appCreateStore()
+export const store = appCreateStore()
 
 class AppContainer extends React.Component{
   render(){

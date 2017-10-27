@@ -5,6 +5,8 @@ export const classToggler = options => Object.keys(options).filter(key => !!opti
 export const map = (child, ...args) => Array.prototype.map.apply(child, args)
 export const filter = (child, ...args) => Array.prototype.filter.apply(child, args)
 export const reduce = (child, ...args) => Array.prototype.reduce.apply(child, args)
+//custom fuzzy search - intended for a full page of flights. 
+//can be applied to multiple search forms by changing the property that it's filtering in the regex.test
 export const fuzzySearch = (filteredCollection, searchValue) => {
   let regex = fuzzySearch(searchValue)
   

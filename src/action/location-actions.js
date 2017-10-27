@@ -45,7 +45,6 @@ export const fetchLocationsReq = () => (dispatch, getState) => {
   return superagent.get(`${__API_URL__}/api/locations`)
     .then(res => {
       dispatch(fetchLocations(res.body))
-      // dispatch(setLocationSuggestions(res.body))
       return res
     })
 }

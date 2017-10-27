@@ -56,12 +56,6 @@ export const flightSearch = results => ({
   payload: results,
 })
 
-export const setLocationSuggestions = results => ({
-  type: 'SET_LOCATION_SUGGESTIONS',
-  payload: results,
-})
-
-
 export const createFlightReq = flight => (dispatch, getState) => {
   return superagent.post(`${__API_URL__}/api/flight/new`)
     .send(flight)
@@ -76,7 +70,6 @@ export const flightSearchReq = search => (dispatch, getState) => {
   return superagent.get(`${__API_URL__}/api/flightplan/${search.departureCode}/${search.destinationCode}`)
     .then(res => {
       dispatch(flightSearch(res.body))
-      .then(() => dispatch(setLocationSuggestions(res.body)))
       return res
     })
 }

@@ -1,13 +1,15 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {store} from '../../main'
 import * as utils from '../../lib/utils'
 import LandingContainer from '../landing-container'
+import {setLocationSuggestions} from '../../action/suggestion-actions'
 import {fetchLocationsReq} from '../../action/location-actions'
 import {BrowserRouter, Route, Redirect} from 'react-router-dom'
 
 class App extends React.Component{
   componentWillMount(){
-    this.props.fetchLocations()
+    store.dispatch(fetchLocationsReq())
   }
 
   render(){
@@ -16,7 +18,6 @@ class App extends React.Component{
         <BrowserRouter>
           <div>
           <Route path ="/" component={LandingContainer}/>
-          {console.log('LOGGING PROPS FROM BROWSERROUTER', this.props.locations)}
           </div>
         </BrowserRouter>
       </div>
@@ -30,6 +31,7 @@ let mapStateToProps = state => ({
 
 let mapDispatchToProps = dispatch => ({
   fetchLocations: () => dispatch(fetchLocationsReq()),
+  setLocationSuggestions: array => dispatch(setLocationSuggestions(array))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

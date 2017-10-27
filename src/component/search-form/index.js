@@ -1,5 +1,4 @@
 import React from 'react'
-// require('./_autosuggest.scss')
 import {connect} from 'react-redux'
 import * as utils from '../../lib/utils'
 import AutoComplete from 'material-ui/AutoComplete'
@@ -14,8 +13,8 @@ import {
   FormControl,
   ControlLabel} from 'react-bootstrap'
 import FlightContainer from '../flight-container'
-import {flightSearchReq} from '../../action/flight-actions'
-import {ascendingFirstClassFilter} from '../../action/flight-actions'
+import {setLocationSuggestions} from '../../action/suggestion-actions'
+import {fetchLocationsReq, flightSearchReq, ascendingFirstClassFilter} from '../../action/flight-actions'
 
 class SearchForm extends React.Component{
   constructor(props){
@@ -32,37 +31,18 @@ class SearchForm extends React.Component{
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleDeparture = this.handleDeparture.bind(this)
     this.handleDestination = this.handleDestination.bind(this)
-    this.handleNewDeparture = this.handleNewDeparture.bind(this)
   }
 
   handleDeparture(searchText){
     this.setState({
       departure: searchText,
-    }, console.log('__STATE__:', this.state.departure))
+    }, console.log('__DEPARTURE__:', searchText))
   }
 
   handleDestination(searchText){
     this.setState({
       destination: searchText,
-    }, console.log('__STATE__:', this.state.destination))
-  }
-
-  handleNewDeparture(searchText){
-    this.setState({
-      departure: '',
-    })
-  }
-
-  setSuggestions(array){
-    let filteredArray = []
-
-    array.map(object => {
-      filteredArray.push(object.location)
-    })
-
-    this.setState({
-      suggestions: filteredArray,
-    })
+    }, console.log('__DESTINATION__:', searchText))
   }
 
   handleSubmit(e){
@@ -81,7 +61,7 @@ class SearchForm extends React.Component{
       destinationCode: this.destinationCode,
     })
   }
-
+  
   render(){
     return(
       <div className="search">
@@ -99,7 +79,7 @@ class SearchForm extends React.Component{
             <Col sm={4}>
               <MuiThemeProvider>
                 <AutoComplete
-                    hintText="Type 'r', case insensitive"
+                    hintText="from one journey..."
                     searchText={this.state.departure}
                     onUpdateInput={this.handleDeparture}
                     dataSource={this.props.locationSuggestions}
@@ -119,7 +99,7 @@ class SearchForm extends React.Component{
             <Col sm={4}>
               <MuiThemeProvider>
                 <AutoComplete
-                  hintText="Type 'r', case insensitive"
+                  hintText="to another.."
                   searchText={this.state.destination}
                   onUpdateInput={this.handleDestination}
                   dataSource={this.props.locationSuggestions}
@@ -146,18 +126,13 @@ class SearchForm extends React.Component{
 let mapStateToProps = state => ({
   locations: state.location,
   flights: state.flight,
-  locationSuggestions: state.flight,
+  locationSuggestions: ['Seattle, WA', 'Las Vegas, NV', 'Los Angeles, CA', 'Pheonix, AZ'],
 })
 
 let mapDispatchToProps = dispatch => ({
   flightSearchReq: search => dispatch(flightSearchReq(search)),
+  setLocationSuggestions: array => dispatch(setLocationSuggestions(fetchLocationsReq())),
   ascendingFirstClassFilter: flights => dispatch(ascendingFirstClassFilter(flights))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchForm)
-
-            // <FormControl
-            //   type="text"
-            //   name="departure"
-            //   placeholder="home"
-            //   onChange={this.handleChange}/>

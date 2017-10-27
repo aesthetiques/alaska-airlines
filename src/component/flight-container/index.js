@@ -5,10 +5,6 @@ import * as utils from '../../lib/utils'
 
 class FlightContainer extends React.Component{
 
-  componentDidMount(){
-    sessionStorage.setItem('flights', JSON.stringify(this.props.flights))
-  }
-
   render(){
     return(
       <div className="flight-container">
@@ -20,7 +16,6 @@ class FlightContainer extends React.Component{
 
 let mapStateToProps = state => ({
   locations: state.location,
-  flights: state.flight,
 })
 
 let mapDispatchToProps = dispatch => ({})
