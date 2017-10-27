@@ -1,4 +1,5 @@
 import React from 'react'
+require('./style/_main-style.scss')
 import ReactDOM from 'react-dom'
 import App from './component/app'
 import { Provider } from 'react-redux'

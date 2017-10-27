@@ -1,3 +1,4 @@
+require('./_landing.scss')
 import React from 'react'
 import {connect} from 'react-redux'
 import * as utils from '../../lib/utils'
@@ -11,11 +12,14 @@ class LandingContainer extends React.Component{
   render(){
     return(
     <div>
-      <PageHeader>
-        <img src="/"/>
-      </PageHeader>
-      <SearchForm
-        results={this.props.locations} />
+      <div className="banner"></div>
+      <SearchForm/>
+      <footer className="footer">
+        <a href="#">Careers</a>
+        <a href="#">Corporate</a>
+        <a href="#">Partners</a>
+        <a href="#">Contact</a>
+      </footer>
     </div>
     )
   }

@@ -1,4 +1,5 @@
 import React from 'react'
+require('./_search-form.scss')
 import {connect} from 'react-redux'
 import * as utils from '../../lib/utils'
 import AutoComplete from 'material-ui/AutoComplete'
