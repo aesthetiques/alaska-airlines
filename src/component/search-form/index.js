@@ -84,7 +84,7 @@ class SearchForm extends React.Component{
                     searchText={this.state.departure}
                     onUpdateInput={this.handleDeparture}
                     dataSource={this.props.locationSuggestions}
-                    filter={(searchText, key) => (key.indexOf(searchText) !== -1)}
+                    filter={AutoComplete.caseInsensitiveFilter}
                     openOnFocus={true}
                   />
               </MuiThemeProvider>
@@ -104,7 +104,7 @@ class SearchForm extends React.Component{
                   searchText={this.state.destination}
                   onUpdateInput={this.handleDestination}
                   dataSource={this.props.locationSuggestions}
-                  filter={(searchText, key) => (key.indexOf(searchText) !== -1)}
+                  filter={AutoComplete.caseInsensitiveFilter}
                   openOnFocus={true}
                 />
               </MuiThemeProvider>
